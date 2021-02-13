@@ -1,16 +1,31 @@
-Selecciona el fichero a importar:<br/>
+<title>CRUD JR Jeisson Ramirez Bravo</title>
+
+
+
+<link rel="stylesheet" href="css/estilo.css">
+
+	
+<header><h1>CRUD JR Jeisson ramirez B. </h1></header>
+
 
 <form enctype='multipart/form-data' action='' method='post' id="form-id-subir" >
-   <table> 
+   <table class="archivo"> 
+    <tr>
+
+    <td>
+        <label for="archivo">Selecciona el fichero a importar: </label>   
+    </tr>
+    <tr>
     <td>
         <input size='50' type='file' name='filename'>
-        <input type="hidden" name="subir" value="admin1">
-    </td>
-    <td>
+        <input type="hidden" name="subir" value="admin1"> <th>
         <button type="submit" class="button">Subir CSV / TXT </button>
     </td>
+    </tr>
    </table>
 </form>
+
+<!--conexion bd-->
 <?php
          $servername = "localhost";
          $username = "root";
@@ -45,49 +60,52 @@ Selecciona el fichero a importar:<br/>
         }else{
            
                 $mysqli->query("INSERT INTO datos (email,nombre,apellido,codigo)values('".$data[0]."','".$data[1]."','".$data[2]."','".$data[3]."')");
-                
-            
+                    
         }
-
-
-    }
-  
+    }  
      fclose($handle);
      //Cierra la carga del archivo
  }
- ?>
-<h4>Agregar Nuevo</h4>
-<form action="" method="post">
-<table>
+ ?> 
+
+
+<form action=""  method="post">
+<table class="usuario">
     <tr>
-        <td><input type="email" name="email" placeholder="Ingresar Email" required></td>
-        <td><input type="text" name="nombre" placeholder="Ingresar Nombre" ></td>
+    <td><label for="usuario">Agregar Nuevo usuario </label></td>
     </tr>
     <tr>
-        <td><input type="text" name="apellido" placeholder="Ingresar Apellido" ></td>
-        <td><input type="number" min="1" name="codigo" placeholder="Ingresar Código" required></td>
-    </tr>
-    <tr>
-        <td><button name="agregar" type="submit">Agregar</button></td>
-    </tr>
+    <td><label for="email"> Correo: </label><br><input type="email" name="email" placeholder="Ingresar Email" required></td> 
+    <td><label for="nombre"> Nombre: </label><br><input type="text" name="nombre" placeholder="Ingresar Nombre" ></td>   
+   
+    <td><label for="apellido"> Apellido: </label><br><input type="text" name="apellido" placeholder="Ingresar Apellido" ></td> 
+    <td><label for="codigo"> Ingrese codigo: </label><br><input type="number" min="1" name="codigo" placeholder="Ingresar Código" required></td>
+   </tr>
+   <tr>
+    <td><br><button name="agregar" type="submit">Agregar</button><br><br></td>
+    </tr>  
 </table>
 </form>
 
- <table border="1">
+<h4><br> USUARIOS <br><br></h4><br>
+
+ <table border="1" class="datos"> <!--mostrar  tabla de datos guardados-->
  <thead>
  <tr>
  <td>#</td>
- <td style="text-align:center;">Email</td>
- <td style="text-align:center;">Nombre</td>
- <td style="text-align:center;">Apellido</td>
- <td style="text-align:center;">Código</td>
- <td style="text-align:center;">Editar</td>
- <td style="text-align:center;">Eliminar</td>
+ <td>Email</td> 
+ <td>Nombre</td>
+ <td>Apellido</td>
+ <td>Código</td>
+ <td>Editar</td>
+ <td>Eliminar</td>
  </tr>
  </thead>
+
  <?php
  $consultaDatos=$mysqli->query("SELECT * FROM datos  ");
  ?>
+
  <tbody>
  <?php
  $conteo='0';
@@ -95,27 +113,31 @@ Selecciona el fichero a importar:<br/>
  ?>
  <tr>
  <td><?php echo $conteo++; ?></td>
- <form action="" method="post">
-    <td><input style="border:0px;background:#C7C6CD;" name="email" type="email" value="<?php echo $extraerDatos['email']; ?>"></td>
-    <td><input style="border:0px;background:#C7C6CD;" name="nombre" type="text" value=" <?php echo $extraerDatos['nombre']; ?>" ></td>
-    <td><input style="border:0px;background:#C7C6CD;" name="apellido" type="text" value=" <?php echo $extraerDatos['apellido']; ?>" ></td>
-    <td><input style="border:0px;background:#C7C6CD;" name="codigo" type="number" min="1" value="<?php echo $extraerDatos['codigo']; ?>" ></td>
-    <td>
-            <input name="id" type="hidden" readonly value="<?php echo $extraerDatos['id']; ?>">
-            <button name="editar" type="submit">Editar</button>
+ <form action="" method="post" class="datosM">
+    <td><input  style="text-align:center;" name="email"    type="email"  value="<?php echo $extraerDatos['email']; ?>"></td>
+    <td><input  style="text-align:center;" name="nombre"   type="text"   value=" <?php echo $extraerDatos['nombre']; ?>" ></td>
+    <td><input  style="text-align:center;" name="apellido" type="text"   value=" <?php echo $extraerDatos['apellido']; ?>" ></td>
+    <td><input  style="text-align:center;" name="codigo"   type="number" min="1" value="<?php echo $extraerDatos['codigo']; ?>" ></td>
+    <td>            
+            <button name="editar" type="submit" >Editar</button>
+            <input name="id" type="hidden" readonly value="<?php echo $extraerDatos['id']; ?>"><br>
     </td>
  </form>
- <td style="text-align:center;">
-    <form action="" method="post">
-        <input name="id" style="height:15px;visibility:hidden;" readonly value="<?php echo $extraerDatos['id']; ?>"><br>
-        <button name="eliminar" type="submit">Eliminar</button>
+ <td >
+    <form action="" method="post">    
+        <input name="id" type="hidden" readonly value="<?php echo $extraerDatos['id']; ?>"><br> 
+        <button name="eliminar" type="submit">Eliminar</button> 
+        <br>
+     
+            
     </form>
  </td>
  </tr>
+
+
+
  <?php
  }
-
-
  /// Agregar registro
  if(isset($_POST['agregar'])){
     $idEditar=$_POST['id'];
@@ -129,6 +151,7 @@ Selecciona el fichero a importar:<br/>
     window.location.href="index.php"</script>';
 }
 /// END
+
  /// Editar registro
  if(isset($_POST['editar'])){
      $idEditar=$_POST['id'];
@@ -142,6 +165,7 @@ Selecciona el fichero a importar:<br/>
      window.location.href="index.php"</script>';
  }
  /// END
+ 
   /// Eliminar registro
   if(isset($_POST['eliminar'])){
     $idEliminar=$_POST['id'];
@@ -153,4 +177,4 @@ Selecciona el fichero a importar:<br/>
 /// END
  ?>
  </tbody>
- </table>
+ </table><!--tabla de datos  guardados  fin-->
